@@ -5,42 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quên Mật Khẩu</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f3f3f3;
-        }
-        h2 {
-            color: #333;
-        }
-        input[type="email"],
-        button {
-            width: 90%;
-            max-width: 500px;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #4CAF50;
-            color: #fff;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        p {
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-        }
-    </style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f3f3f3;
+    }
+    h2 {
+        color: #333;
+    }
+    input[type="email"],
+    button {
+        width: 90%;
+        max-width: 500px;
+        padding: 13px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    button {
+        width: 80%; 
+        max-width: 250px; 
+        padding: 13px; 
+        background-color: #4CAF50;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px; 
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    p {
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+    }
+</style>
+
 </head>
 <body>
 
@@ -48,6 +53,7 @@
 <form action="" method="POST" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
     <input type="email" name="email" placeholder="Nhập email của bạn" required>
     <button type="submit" name="submit">Gửi Mã</button>
+    <p>Đã có tài khoản? <a href="login.html" style="color: #4CAF50; text-decoration: none;">Đăng nhập</a></p>
 </form>
 
 <?php
