@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2024 at 06:10 AM
+-- Generation Time: Oct 27, 2024 at 07:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -138,34 +138,35 @@ CREATE TABLE `tttaikhoan` (
   `Trangthaihoatdong` tinyint(1) NOT NULL,
   `Trangthaikichhoat` tinyint(1) NOT NULL,
   `Tokenemail` char(6) NOT NULL,
-  `Thoigianguitoken` datetime NOT NULL
+  `Thoigianguitoken` datetime NOT NULL,
+  `MaKH` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tttaikhoan`
 --
 
-INSERT INTO `tttaikhoan` (`MaTK`, `TenTK`, `Matkhau`, `Ngaytao`, `Nguoitao`, `Ngaysua`, `Nguoisua`, `Vaitro`, `Trangthaihoatdong`, `Trangthaikichhoat`, `Tokenemail`, `Thoigianguitoken`) VALUES
-('TK1', 'an_tk', '$2a$12$Rseh2gmelUDob6dfmUfTz.H08Os6jxyQolHL.78ST8AfH1oGlq9/u', '2024-10-27 11:07:25', 'an_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '757462', '2024-10-27 11:07:25'),
-('TK10', 'tung_tk', '$2a$12$/mFz.ol.rZXLhq8OtA7E1uG4whUrhyx92fPcTjpnXrcfZNBg7/dA2', '2024-10-27 11:07:25', 'tung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '828532', '2024-10-27 11:07:25'),
-('TK11', 'tuyet_tk', '$2a$12$BwnIoc9WH/goE8VniONbvu1ypR8kCbKGdyHvGdLRHZ3JzqfX5R3Hu', '2024-10-27 11:07:25', 'tuyet_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '199163', '2024-10-27 11:07:25'),
-('TK12', 'loc_tk', '$2a$12$IsDwtUaj5rvelJLmEMTcT.0uRvVFJ57PGV6n7NH9bg51go5fC4KQ.', '2024-10-27 11:07:25', 'loc_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '510218', '2024-10-27 11:07:25'),
-('TK13', 'kien_tk', '$2a$12$iih5Ufzvai.UhhCj9knSauoUZqi2L/f226JsPC3uK8LNGp8TXGQce', '2024-10-27 11:07:25', 'kien_tk', '2024-10-27 12:07:15', 'kien_tk', 'user', 1, 1, '953600', '2024-10-27 11:07:25'),
-('TK14', 'nhung_tk', '$2a$12$vavmhZC0YPNzDwc3sEB35.FTKm/jMSWbQSe7FhDwZMJz6nFHiL4fe', '2024-10-27 11:07:25', 'nhung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '237350', '2024-10-27 11:07:25'),
-('TK15', 'son_tk', '$2a$12$.5Bz4cM2qjhFmwZ4zjAStOjLjFsf0TLlm6KhNu2jx3M6WFcltkHTK', '2024-10-27 11:07:25', 'son_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '325948', '2024-10-27 11:07:25'),
-('TK16', 'thuy_tk', '$2a$12$RGxHeumzqPs.dOz7nOgV../7NXEzxAyDKQiWUPqp.BT2lwHAFyx2m', '2024-10-27 11:07:25', 'thuy_tk', '2024-10-27 12:07:15', 'thuy_tk', 'user', 1, 1, '917690', '2024-10-27 11:07:25'),
-('TK17', 'hai_tk', '$2a$12$BO.Yb.sjp5WSiCYX7S2Z6eURguIA.Y8ZiJU8fCkFs8KNJ3.zKINUK', '2024-10-27 11:07:25', 'hai_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '610606', '2024-10-27 11:07:25'),
-('TK18', 'dung_tk', '$2a$12$8al4lZvcPIMJ0qbG8P6kcOK5nrVnVLtk3keSHGx1QpTkFWLL7Biee', '2024-10-27 11:07:25', 'dung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '299961', '2024-10-27 11:07:25'),
-('TK19', 'dat_tk', '$2a$12$Vc5h1wJF4CUdvAO/e65eZ.6GuBN8fUvR8TlFHqtdvF9.KdPW23zoq', '2024-10-27 11:07:25', 'dat_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '667987', '2024-10-27 11:07:25'),
-('TK2', 'bich_tk', '$2a$12$vx8oeZyj5MiOdRbDFy0MTOoFjjVSGmWyByOF3wOzLz.HQsGa8jI7K', '2024-10-27 11:07:25', 'bich_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '458087', '2024-10-27 11:07:25'),
-('TK20', 'hang_tk', '$2a$12$xaI45/.GwxfTyaU9I2mXjumXwGbtrdpFUesAvn14S9/HisMNzhRKC', '2024-10-27 11:07:25', 'hang_tk', '2024-10-27 12:07:15', 'hang_tk', 'user', 1, 1, '440052', '2024-10-27 11:07:25'),
-('TK3', 'huy_tk', '$2a$12$q9X3xW5yk9a5GDtHneP/yuYJwhry4iGr71Y3sags30uhajR7npu/.', '2024-10-27 11:07:25', 'huy_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '018048', '2024-10-27 11:07:25'),
-('TK4', 'hoa_tk', '$2a$12$q3Ws5/wPdruDNJXlHLh.d.gCrNwhptVjmzxT9tKnlkmEu9flIZvqe', '2024-10-27 11:07:25', 'hoa_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '715980', '2024-10-27 11:07:25'),
-('TK5', 'lan_tk', '$2a$12$sdFcrZC6of6.6ELwcl9t0ea0EZooZXC0NQAUe8RFflMo1Fekm40Fa', '2024-10-27 11:07:25', 'lan_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '525759', '2024-10-27 11:07:25'),
-('TK6', 'khai_tk', '$2a$12$v/iq9cD5S9uRMHVyGEz3g.Qdf1UvOV1jzo8sAHeQWUNRKRIJbY4Rm', '2024-10-27 11:07:25', 'khai_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '480855', '2024-10-27 11:07:25'),
-('TK7', 'thao_tk', '$2a$12$pTdYsc2pp.N5QcEIbhm1RegfhnJO6Os5f28VFbo3s5cMQwb5XbVnG', '2024-10-27 11:07:25', 'thao_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '827000', '2024-10-27 11:07:25'),
-('TK8', 'minh_tk', '$2a$12$bjAvzoiK3uZHYO7J4TjTMuAkw/qz2VlbLDbXUeqc95J3IOPGBy4em', '2024-10-27 11:07:25', 'minh_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '692433', '2024-10-27 11:07:25'),
-('TK9', 'huong_tk', '$2a$12$LXke9cDojwEhTM7laNUnUurpCjtcDi0DSP2vGLvTOJ6Qke0Uc0iCW', '2024-10-27 11:07:25', 'huong_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '981166', '2024-10-27 11:07:25');
+INSERT INTO `tttaikhoan` (`MaTK`, `TenTK`, `Matkhau`, `Ngaytao`, `Nguoitao`, `Ngaysua`, `Nguoisua`, `Vaitro`, `Trangthaihoatdong`, `Trangthaikichhoat`, `Tokenemail`, `Thoigianguitoken`, `MaKH`) VALUES
+('TK1', 'an_tk', '$2a$12$Rseh2gmelUDob6dfmUfTz.H08Os6jxyQolHL.78ST8AfH1oGlq9/u', '2024-10-27 11:07:25', 'an_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '757462', '2024-10-27 11:07:25', 'KH1'),
+('TK10', 'tung_tk', '$2a$12$/mFz.ol.rZXLhq8OtA7E1uG4whUrhyx92fPcTjpnXrcfZNBg7/dA2', '2024-10-27 11:07:25', 'tung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '828532', '2024-10-27 11:07:25', 'KH10'),
+('TK11', 'tuyet_tk', '$2a$12$BwnIoc9WH/goE8VniONbvu1ypR8kCbKGdyHvGdLRHZ3JzqfX5R3Hu', '2024-10-27 11:07:25', 'tuyet_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '199163', '2024-10-27 11:07:25', 'KH11'),
+('TK12', 'loc_tk', '$2a$12$IsDwtUaj5rvelJLmEMTcT.0uRvVFJ57PGV6n7NH9bg51go5fC4KQ.', '2024-10-27 11:07:25', 'loc_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '510218', '2024-10-27 11:07:25', 'KH12'),
+('TK13', 'kien_tk', '$2a$12$iih5Ufzvai.UhhCj9knSauoUZqi2L/f226JsPC3uK8LNGp8TXGQce', '2024-10-27 11:07:25', 'kien_tk', '2024-10-27 12:07:15', 'kien_tk', 'user', 1, 1, '953600', '2024-10-27 11:07:25', 'KH13'),
+('TK14', 'nhung_tk', '$2a$12$vavmhZC0YPNzDwc3sEB35.FTKm/jMSWbQSe7FhDwZMJz6nFHiL4fe', '2024-10-27 11:07:25', 'nhung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '237350', '2024-10-27 11:07:25', 'KH14'),
+('TK15', 'son_tk', '$2a$12$.5Bz4cM2qjhFmwZ4zjAStOjLjFsf0TLlm6KhNu2jx3M6WFcltkHTK', '2024-10-27 11:07:25', 'son_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '325948', '2024-10-27 11:07:25', 'KH15'),
+('TK16', 'thuy_tk', '$2a$12$RGxHeumzqPs.dOz7nOgV../7NXEzxAyDKQiWUPqp.BT2lwHAFyx2m', '2024-10-27 11:07:25', 'thuy_tk', '2024-10-27 12:07:15', 'thuy_tk', 'user', 1, 1, '917690', '2024-10-27 11:07:25', 'KH16'),
+('TK17', 'hai_tk', '$2a$12$BO.Yb.sjp5WSiCYX7S2Z6eURguIA.Y8ZiJU8fCkFs8KNJ3.zKINUK', '2024-10-27 11:07:25', 'hai_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '610606', '2024-10-27 11:07:25', 'KH17'),
+('TK18', 'dung_tk', '$2a$12$8al4lZvcPIMJ0qbG8P6kcOK5nrVnVLtk3keSHGx1QpTkFWLL7Biee', '2024-10-27 11:07:25', 'dung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '299961', '2024-10-27 11:07:25', 'KH18'),
+('TK19', 'dat_tk', '$2a$12$Vc5h1wJF4CUdvAO/e65eZ.6GuBN8fUvR8TlFHqtdvF9.KdPW23zoq', '2024-10-27 11:07:25', 'dat_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '667987', '2024-10-27 11:07:25', 'KH19'),
+('TK2', 'bich_tk', '$2a$12$vx8oeZyj5MiOdRbDFy0MTOoFjjVSGmWyByOF3wOzLz.HQsGa8jI7K', '2024-10-27 11:07:25', 'bich_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '458087', '2024-10-27 11:07:25', 'KH2'),
+('TK20', 'hang_tk', '$2a$12$xaI45/.GwxfTyaU9I2mXjumXwGbtrdpFUesAvn14S9/HisMNzhRKC', '2024-10-27 11:07:25', 'hang_tk', '2024-10-27 12:07:15', 'hang_tk', 'user', 1, 1, '440052', '2024-10-27 11:07:25', 'KH20'),
+('TK3', 'huy_tk', '$2a$12$q9X3xW5yk9a5GDtHneP/yuYJwhry4iGr71Y3sags30uhajR7npu/.', '2024-10-27 11:07:25', 'huy_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '018048', '2024-10-27 11:07:25', 'KH3'),
+('TK4', 'hoa_tk', '$2a$12$q3Ws5/wPdruDNJXlHLh.d.gCrNwhptVjmzxT9tKnlkmEu9flIZvqe', '2024-10-27 11:07:25', 'hoa_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '715980', '2024-10-27 11:07:25', 'KH4'),
+('TK5', 'lan_tk', '$2a$12$sdFcrZC6of6.6ELwcl9t0ea0EZooZXC0NQAUe8RFflMo1Fekm40Fa', '2024-10-27 11:07:25', 'lan_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '525759', '2024-10-27 11:07:25', 'KH5'),
+('TK6', 'khai_tk', '$2a$12$v/iq9cD5S9uRMHVyGEz3g.Qdf1UvOV1jzo8sAHeQWUNRKRIJbY4Rm', '2024-10-27 11:07:25', 'khai_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '480855', '2024-10-27 11:07:25', 'KH6'),
+('TK7', 'thao_tk', '$2a$12$pTdYsc2pp.N5QcEIbhm1RegfhnJO6Os5f28VFbo3s5cMQwb5XbVnG', '2024-10-27 11:07:25', 'thao_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '827000', '2024-10-27 11:07:25', 'KH7'),
+('TK8', 'minh_tk', '$2a$12$bjAvzoiK3uZHYO7J4TjTMuAkw/qz2VlbLDbXUeqc95J3IOPGBy4em', '2024-10-27 11:07:25', 'minh_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '692433', '2024-10-27 11:07:25', 'KH8'),
+('TK9', 'huong_tk', '$2a$12$LXke9cDojwEhTM7laNUnUurpCjtcDi0DSP2vGLvTOJ6Qke0Uc0iCW', '2024-10-27 11:07:25', 'huong_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '981166', '2024-10-27 11:07:25', 'KH9');
 
 --
 -- Triggers `tttaikhoan`
@@ -204,7 +205,8 @@ ALTER TABLE `ttcanhan`
 -- Indexes for table `tttaikhoan`
 --
 ALTER TABLE `tttaikhoan`
-  ADD PRIMARY KEY (`MaTK`);
+  ADD PRIMARY KEY (`MaTK`),
+  ADD KEY `fk_KH` (`MaKH`);
 
 --
 -- Constraints for dumped tables
@@ -215,6 +217,12 @@ ALTER TABLE `tttaikhoan`
 --
 ALTER TABLE `datlaimk`
   ADD CONSTRAINT `fk_MaTK` FOREIGN KEY (`MaTK`) REFERENCES `tttaikhoan` (`MaTK`);
+
+--
+-- Constraints for table `tttaikhoan`
+--
+ALTER TABLE `tttaikhoan`
+  ADD CONSTRAINT `fk_KH` FOREIGN KEY (`MaKH`) REFERENCES `ttcanhan` (`MaKH`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
