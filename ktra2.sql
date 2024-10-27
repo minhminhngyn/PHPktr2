@@ -31,16 +31,16 @@ CREATE TABLE `datlaimk` (
   `MaToken` varchar(10) NOT NULL,
   `MaTK` varchar(10) NOT NULL,
   `Token` char(6) NOT NULL,
-  `Tgtao` datetime NOT NULL,
-  `Tghethan` datetime NOT NULL,
-  `Trangthai` tinyint(1) NOT NULL
+  `TgTao` datetime NOT NULL,
+  `TgHethan` datetime NOT NULL,
+  `TrangThai` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `datlaimk`
 --
 
-INSERT INTO `datlaimk` (`MaToken`, `MaTK`, `Token`, `Tgtao`, `Tghethan`, `Trangthai`) VALUES
+INSERT INTO `datlaimk` (`MaToken`, `MaTK`, `Token`, `TgTao`, `TgHethan`, `TrangThai`) VALUES
 ('MT1', 'TK10', '389783', '2024-10-27 12:05:51', '2024-10-28 12:05:51', 0),
 ('MT2', 'TK11', '909714', '2024-10-27 12:05:51', '2024-10-28 12:05:51', 0),
 ('MT3', 'TK20', '379225', '2024-10-27 12:05:51', '2024-10-28 12:05:51', 1),
@@ -66,12 +66,12 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ttcanhan`
+-- Table structure for table `thongtincanhan`
 --
 
-CREATE TABLE `ttcanhan` (
+CREATE TABLE `thongtincanhan` (
   `MaKH` varchar(10) NOT NULL,
-  `Hoten` varchar(50) NOT NULL,
+  `TenKH` varchar(50) NOT NULL,
   `NgaySinh` date NOT NULL,
   `Diachi` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
@@ -79,10 +79,10 @@ CREATE TABLE `ttcanhan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ttcanhan`
+-- Dumping data for table `thongtincanhan`
 --
 
-INSERT INTO `ttcanhan` (`MaKH`, `Hoten`, `NgaySinh`, `Diachi`, `Email`, `SDT`) VALUES
+INSERT INTO `thongtincanhan` (`MaKH`, `TenKH`, `NgaySinh`, `Diachi`, `Email`, `SDT`) VALUES
 ('KH1', 'Nguyễn Văn An', '1990-01-01', 'Hà Nội', 'an@gmail.com', '0912345678'),
 ('KH10', 'Trần Văn Tùng', '2000-10-10', 'Hà Nội', 'tung@gmail.com', '0912345687'),
 ('KH11', 'Lê Thị Tuyết', '1991-11-11', 'Đà Nẵng', 'tuyet@gmail.com', '0912345688'),
@@ -105,14 +105,14 @@ INSERT INTO `ttcanhan` (`MaKH`, `Hoten`, `NgaySinh`, `Diachi`, `Email`, `SDT`) V
 ('KH9', 'Nguyễn Thị Hương', '1999-09-09', 'Quy Nhơn', 'huong@gmail.com', '0912345686');
 
 --
--- Triggers `ttcanhan`
+-- Triggers `thongtincanhan`
 --
 DELIMITER $$
-CREATE TRIGGER `before_insert_ttcanhan` BEFORE INSERT ON `ttcanhan` FOR EACH ROW BEGIN
+CREATE TRIGGER `before_insert_thongtincanhan` BEFORE INSERT ON `thongtincanhan` FOR EACH ROW BEGIN
     DECLARE new_id INT;
 
     -- Tìm ID lớn nhất hiện có
-    SELECT COALESCE(MAX(CAST(SUBSTRING(MaKH, 3) AS UNSIGNED)), 0) + 1 INTO new_id FROM ttcanhan;
+    SELECT COALESCE(MAX(CAST(SUBSTRING(MaKH, 3) AS UNSIGNED)), 0) + 1 INTO new_id FROM thongtincanhan;
 
     -- Gán giá trị mới cho MaKH
     SET NEW.MaKH = CONCAT('KH', new_id);
@@ -123,30 +123,30 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tttaikhoan`
+-- Table structure for table `thongtintaikhoan`
 --
 
-CREATE TABLE `tttaikhoan` (
+CREATE TABLE `thongtintaikhoan` (
   `MaTK` varchar(10) NOT NULL,
-  `TenTK` varchar(50) NOT NULL,
-  `Matkhau` varchar(60) NOT NULL,
-  `Ngaytao` datetime NOT NULL,
-  `Nguoitao` varchar(50) NOT NULL,
-  `Ngaysua` datetime NOT NULL,
-  `Nguoisua` varchar(50) NOT NULL,
-  `Vaitro` varchar(10) NOT NULL,
-  `Trangthaihoatdong` tinyint(1) NOT NULL,
-  `Trangthaikichhoat` tinyint(1) NOT NULL,
-  `Tokenemail` char(6) NOT NULL,
-  `Thoigianguitoken` datetime NOT NULL,
+  `TenDangNhap` varchar(50) NOT NULL,
+  `MatKhau` varchar(60) NOT NULL,
+  `NgayTao` datetime NOT NULL,
+  `NguoiTao` varchar(50) NOT NULL,
+  `NgaySua` datetime NOT NULL,
+  `NguoiSua` varchar(50) NOT NULL,
+  `PhanQuyen` varchar(10) NOT NULL,
+  `TrangThaiHoatDong` tinyint(1) NOT NULL,
+  `TrangThaiXacThuc` tinyint(1) NOT NULL,
+  `TokenEmail` char(6) NOT NULL,
+  `ThoiGianTokenEmail` datetime NOT NULL,
   `MaKH` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tttaikhoan`
+-- Dumping data for table `thongtintaikhoan`
 --
 
-INSERT INTO `tttaikhoan` (`MaTK`, `TenTK`, `Matkhau`, `Ngaytao`, `Nguoitao`, `Ngaysua`, `Nguoisua`, `Vaitro`, `Trangthaihoatdong`, `Trangthaikichhoat`, `Tokenemail`, `Thoigianguitoken`, `MaKH`) VALUES
+INSERT INTO `thongtintaikhoan` (`MaTK`, `TenDangNhap`, `MatKhau`, `NgayTao`, `NguoiTao`, `NgaySua`, `NguoiSua`, `PhanQuyen`, `TrangThaiHoatDong`, `TrangThaiXacThuc`, `TokenEmail`, `ThoiGianTokenEmail`, `MaKH`) VALUES
 ('TK1', 'an_tk', '$2a$12$Rseh2gmelUDob6dfmUfTz.H08Os6jxyQolHL.78ST8AfH1oGlq9/u', '2024-10-27 11:07:25', 'an_tk', '0000-00-00 00:00:00', '', 'admin', 1, 1, '757462', '2024-10-27 11:07:25', 'KH1'),
 ('TK10', 'tung_tk', '$2a$12$/mFz.ol.rZXLhq8OtA7E1uG4whUrhyx92fPcTjpnXrcfZNBg7/dA2', '2024-10-27 11:07:25', 'tung_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '828532', '2024-10-27 11:07:25', 'KH10'),
 ('TK11', 'tuyet_tk', '$2a$12$BwnIoc9WH/goE8VniONbvu1ypR8kCbKGdyHvGdLRHZ3JzqfX5R3Hu', '2024-10-27 11:07:25', 'tuyet_tk', '0000-00-00 00:00:00', '', 'user', 1, 1, '199163', '2024-10-27 11:07:25', 'KH11'),
@@ -169,14 +169,14 @@ INSERT INTO `tttaikhoan` (`MaTK`, `TenTK`, `Matkhau`, `Ngaytao`, `Nguoitao`, `Ng
 ('TK9', 'huong_tk', '$2a$12$LXke9cDojwEhTM7laNUnUurpCjtcDi0DSP2vGLvTOJ6Qke0Uc0iCW', '2024-10-27 11:07:25', 'huong_tk', '0000-00-00 00:00:00', '', 'user', 0, 0, '981166', '2024-10-27 11:07:25', 'KH9');
 
 --
--- Triggers `tttaikhoan`
+-- Triggers `thongtintaikhoan`
 --
 DELIMITER $$
-CREATE TRIGGER `before_insert_tttaikhoan` BEFORE INSERT ON `tttaikhoan` FOR EACH ROW BEGIN
+CREATE TRIGGER `before_insert_thongtintaikhoan` BEFORE INSERT ON `thongtintaikhoan` FOR EACH ROW BEGIN
     DECLARE new_id INT;
 
     -- Tìm ID lớn nhất hiện có
-    SELECT COALESCE(MAX(CAST(SUBSTRING(MaTK, 3) AS UNSIGNED)), 0) + 1 INTO new_id FROM tttaikhoan;
+    SELECT COALESCE(MAX(CAST(SUBSTRING(MaTK, 3) AS UNSIGNED)), 0) + 1 INTO new_id FROM thongtintaikhoan;
 
     -- Gán giá trị mới cho MaKH
     SET NEW.MaTK = CONCAT('TK', new_id);
@@ -196,15 +196,15 @@ ALTER TABLE `datlaimk`
   ADD KEY `fk_MaTK` (`MaTK`);
 
 --
--- Indexes for table `ttcanhan`
+-- Indexes for table `thongtincanhan`
 --
-ALTER TABLE `ttcanhan`
+ALTER TABLE `thongtincanhan`
   ADD PRIMARY KEY (`MaKH`);
 
 --
--- Indexes for table `tttaikhoan`
+-- Indexes for table `thongtintaikhoan`
 --
-ALTER TABLE `tttaikhoan`
+ALTER TABLE `thongtintaikhoan`
   ADD PRIMARY KEY (`MaTK`),
   ADD KEY `fk_KH` (`MaKH`);
 
@@ -216,13 +216,13 @@ ALTER TABLE `tttaikhoan`
 -- Constraints for table `datlaimk`
 --
 ALTER TABLE `datlaimk`
-  ADD CONSTRAINT `fk_MaTK` FOREIGN KEY (`MaTK`) REFERENCES `tttaikhoan` (`MaTK`);
+  ADD CONSTRAINT `fk_MaTK` FOREIGN KEY (`MaTK`) REFERENCES `thongtintaikhoan` (`MaTK`);
 
 --
--- Constraints for table `tttaikhoan`
+-- Constraints for table `thongtintaikhoan`
 --
-ALTER TABLE `tttaikhoan`
-  ADD CONSTRAINT `fk_KH` FOREIGN KEY (`MaKH`) REFERENCES `ttcanhan` (`MaKH`);
+ALTER TABLE `thongtintaikhoan`
+  ADD CONSTRAINT `fk_KH` FOREIGN KEY (`MaKH`) REFERENCES `thongtincanhan` (`MaKH`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
