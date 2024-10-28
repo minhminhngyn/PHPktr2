@@ -43,6 +43,15 @@
             text-align: center;
         }
     </style>
+</head>
+<body>
+    <h2>Quên Mật Khẩu</h2>
+    <form action="Quenmatkhau.php" method="POST" style="width: 100%; display: flex; flex-direction: column; align-items: center;" onsubmit="return validateForm()">
+        <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+        <button type="submit" name="submit">Gửi Mã</button>
+        <p>Đã có tài khoản? <a href="login.html" style="color: #000; text-decoration: none;">Đăng nhập</a></p>
+    </form>
+
     <script>
         function validateForm() {
             const email = document.getElementById("email").value;
@@ -55,93 +64,68 @@
                 alert("Email không hợp lệ!");
                 return false;
             }
-            alert("Đã gửi mã, check email");
             return true;
         }
     </script>
-</head>
-<body>
-    <h2>Quên Mật Khẩu</h2>
-    <form action="forgot_password.php" method="POST" onsubmit="return validateForm()" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-        <input type="email" id="email" name="email" placeholder="Nhập email của bạn">
-        <button type="submit" name="submit">Gửi Mã</button>
-        <p>Đã có tài khoản? <a href="login.html" style="color: #000; text-decoration: none;">Đăng nhập</a></p>
-    </form>
 
     <?php
-include "connect.php";
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+    include 'connect.php';
 
-require 'C:\xampp\htdocs\Ktr2\vendor\phpmailer\phpmailer\src\Exception.php';
-require 'C:\xampp\htdocs\Ktr2\vendor\phpmailer\phpmailer\src\PHPMailer.php';
-require 'C:\xampp\htdocs\Ktr2\vendor\phpmailer\phpmailer\src\SMTP.php';
+    // Import thư viện PHPMailer
+    require("vendor/phpmailer/phpmailer/src/PHPMailer.php");
+    require("vendor/phpmailer/phpmailer/src/SMTP.php");
+    require("vendor/phpmailer/phpmailer/src/Exception.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["email"])) { // Sửa lại "email" chữ thường
-    $email = $_POST["email"];
-    
-    // Kiểm tra email có tồn tại trong hệ thống không
-    $stmt = $conn->prepare("SELECT tk.MaTK, cn.MaKH FROM thongtintaikhoan tk JOIN thongtincanhan cn ON tk.MaTK = cn.MaKH WHERE cn.Email = ?");
-    
-    if ($stmt === false) {
-        die("Lỗi khi chuẩn bị truy vấn SQL: " . $conn->error);
-    }
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if (isset($_POST['submit'])) {
+        $userEmail = $_POST['email'];
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $MaTK = $row['MaTK'];
+        $mail = new PHPMailer(true);
+        try {
+            // Cấu hình SMTP
+            $mail->isSMTP();
+            $mail->CharSet = "utf-8";
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+            $mail->Username = "nguyenminh26721@gmail.com"; // Địa chỉ email của bạn
+            $mail->Password = "pxkg xwep jpyc ifvd";       // Mật khẩu ứng dụng của email
+            $mail->SMTPSecure = "ssl";
+            $mail->Port = 465;
 
-        // Tạo mã xác nhận và liên kết đặt lại mật khẩu
-        $token = bin2hex(random_bytes(16));
-        $resetLink = "http://yourwebsite.com/datlaimk.php?token=" . $token;
+            // Cấu hình người gửi và người nhận
+            $mail->setFrom("nguyenminh26721@gmail.com", "Minh Minh");
+            $mail->addAddress($userEmail); // Sử dụng email người dùng nhập từ form
 
-        // Lưu token vào bảng datlaimk
-        $stmt = $conn->prepare("INSERT INTO datlaimk (MaTK, Token, TgTao, TgHetHan, Trangthai) VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR), 0)");
-        
-        if ($stmt === false) {
-            die("Lỗi khi chuẩn bị truy vấn SQL: " . $conn->error);
-        }
+            // Nội dung email
+            $mail->isHTML(true);
+            $mail->Subject = "Quên mật khẩu";
+            $mail->Body = "
+                <h3>Xin chào,</h3>
+                <p>Bạn đã yêu cầu đặt lại mật khẩu. Nhấp vào nút bên dưới để tiếp tục:</p>
+                <a href='http://localhost/Ktr2/Datlaimk.php' style='display: inline-block; padding: 10px 20px; color: #fff; background-color: #007bff; text-decoration: none; border-radius: 5px; font-weight: bold;'>Đặt lại mật khẩu</a>
+                <p>Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này.</p>
+                <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>
+            ";
 
-        $stmt->bind_param("is", $MaTK, $token);
+            // Tùy chọn bảo mật
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
 
-        if ($stmt->execute()) {
             // Gửi email
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'nguyenminh26721@gmail.com';
-                $mail->Password = 'app-specific-password';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
-                $mail->SMTPDebug = 0;
-            
-                $mail->setFrom('nguyenminh26721@gmail.com');
-                $mail->addAddress($email);
-            
-                $mail->isHTML(true);
-                $mail->Subject = 'Đặt lại mật khẩu của bạn';
-                $mail->Body    = "Click vào link sau để đặt lại mật khẩu của bạn: <a href='$resetLink'>$resetLink</a>";
-                
-                $mail->send();
-                echo "<p style='color: green;'>Mã đã được gửi tới email của bạn!</p>";
-            } catch (Exception $e) {
-                echo "<p style='color: red;'>Không thể gửi email. Vui lòng thử lại sau. Lỗi: {$mail->ErrorInfo}</p>";
-            }
-            
-        } else {
-            die("Lỗi khi thực hiện truy vấn SQL: " . $stmt->error);
+            $mail->send();
+            echo "<script>alert('Email đã được gửi thành công đến $userEmail');</script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Không thể gửi email. Lỗi: " . $mail->ErrorInfo . "');</script>";
         }
-    } else {
-        echo "<p style='color: red;'>Email không tồn tại trong hệ thống!</p>";
     }
-}
-?>
+    ?>
 
 </body>
 </html>

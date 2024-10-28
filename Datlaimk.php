@@ -77,71 +77,61 @@
             margin-left: 5px;
         }
     </style>
-    <script>
-        const oldPassword = "oldpassword123"; // Giả định mật khẩu cũ là "oldpassword123"
-
-        function togglePasswordVisibility(inputId, toggleId) {
-            const passwordInput = document.getElementById(inputId);
-            const toggleIcon = document.getElementById(toggleId);
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                toggleIcon.textContent = "🙈";
-            } else {
-                passwordInput.type = "password";
-                toggleIcon.textContent = "👁️";
-            }
-        }
-
+  <script>
         function validatePasswords(event) {
             const newPassword = document.getElementById("newPassword").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
             const errorMessage = document.getElementById("errorMessage");
-            const loginLink = document.getElementById("loginLink");
-
-            if (newPassword === oldPassword) {
+            
+            if (newPassword !== confirmPassword) {
                 errorMessage.style.display = "block";
-                errorMessage.textContent = "Mật khẩu mới trùng với mật khẩu cũ.";
-                loginLink.style.display = "inline"; // Hiển thị link "Đăng nhập" nếu mật khẩu trùng
-                event.preventDefault();
-            } else if (newPassword !== confirmPassword) {
-                errorMessage.style.display = "block";
-                errorMessage.textContent = "Mật khẩu không khớp. Vui lòng thử lại.";
-                loginLink.style.display = "none";
                 event.preventDefault();
             } else {
                 errorMessage.style.display = "none";
-                loginLink.style.display = "none";
-                alert("Đặt mật khẩu mới thành công!");
-                window.location.href = "index.html"; // Chuyển hướng đến trang chủ
+                document.getElementById("resetForm").submit();
             }
         }
     </script>
 </head>
 <body>
-
-<h2>Đặt Lại Mật Khẩu</h2>
-
-<form onsubmit="validatePasswords(event)" style="display: flex; flex-direction: column; align-items: center;">
-    <div class="password-container">
-        <input type="password" id="newPassword" placeholder="Mật khẩu mới" required>
-        <span id="toggleNewPassword" class="toggle-password" onclick="togglePasswordVisibility('newPassword', 'toggleNewPassword')">👁️</span>
-    </div>
-    <div id="passwordSuggestion" class="password-suggestion">Gợi ý: Tạo mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.</div>
-    
-    <div class="password-container">
+    <h2>Đặt Lại Mật Khẩu</h2>
+    <form id="resetForm" method="post" onsubmit="validatePasswords(event)">
+        <input type="password" id="newPassword" name="new_password" placeholder="Mật khẩu mới" required>
         <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu mới" required>
-        <span id="toggleConfirmPassword" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁️</span>
-    </div>
-    
-    <div id="errorMessage" class="error-message">Mật khẩu không khớp. Vui lòng thử lại.</div>
-    <a id="loginLink" class="login-link" href="login.html" style="display: none;">Đăng nhập</a>
+        <div id="errorMessage" style="display: none; color: red;">Mật khẩu không khớp!</div>
+        <button type="submit">Lưu</button>
+    </form>
 
-    <div style="display: flex;">
-        <button type="button" id="skipBtn">Bỏ qua</button>
-        <button type="submit" id="saveBtn">Lưu</button>
-    </div>
-</form>
+    <?php
+    include 'connect.php';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $newPassword = $_POST['new_password'];
+        $token = $_GET['token'];
 
+        $stmt = $conn->prepare("SELECT MaTK FROM datlaimk WHERE Token = ? AND Trangthai = 0 AND TgHetHan > NOW()");
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $MaTK = $row['MaTK'];
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            $updateStmt = $conn->prepare("UPDATE thongtintaikhoan SET MatKhau = ? WHERE MaTK = ?");
+            $updateStmt->bind_param("si", $hashedPassword, $MaTK);
+
+            if ($updateStmt->execute()) {
+                $conn->query("UPDATE datlaimk SET Trangthai = 1 WHERE Token = '$token'");
+                echo "<script>
+                        alert('Mật khẩu đã thay đổi thành công!');
+                        window.location.href = 'Dangnhap.php?username=" . urlencode($MaTK) . "&password=" . urlencode($newPassword) . "';
+                      </script>";
+            }
+        } else {
+            echo "<p>Token không hợp lệ hoặc đã hết hạn!</p>";
+        }
+    }
+    ?>
 </body>
 </html>
