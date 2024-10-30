@@ -55,3 +55,49 @@
 
 </body>
 </html>
+    <script>
+        function validatePasswords(event) {
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Mật khẩu không khớp!");
+                event.preventDefault();
+            } else {
+                alert("Đặt lại mật khẩu thành công!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Đặt Lại Mật Khẩu</h2>
+    <form id="resetForm" method="post" onsubmit="validatePasswords(event)">
+        <table>
+            <tr>
+                <td>Mật khẩu:</td>
+                <td>
+                    <div style="position: relative;">
+                        <input type='password' id='newPassword' name='new_password' required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
+                            <img src="eye-off-icon.png" alt="Show Password" id="eyeIconPassword" style="cursor: pointer;">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Xác nhận mật khẩu:</td>
+                <td>
+                    <div style="position: relative;">
+                        <input type='password' id='confirmPassword' name='password_confirm' required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                            <img src="eye-off-icon.png" alt="Show Password" id="eyeIconConfirmPassword" style="cursor: pointer;">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="text-align: center;"> 
+            <button type='button' id='reset_value'>Làm lại</button>
+            <input type='submit' value='Đặt lại mật khẩu'>
+        </div>
+    </form>

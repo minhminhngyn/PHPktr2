@@ -78,12 +78,20 @@
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
-
     if (isset($_POST['submit'])) {
         $userEmail = $_POST['email'];
 
-        $mail = new PHPMailer(true);
-        try {
+        // Kiểm tra email có tồn tại trong bảng 'thongtincanhan' không
+        $stmt = $conn->prepare("SELECT * FROM thongtincanhan WHERE Email = ?");
+        $stmt->bind_param("s", $userEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 0) {
+            echo "<script>alert('Tài khoản không tồn tại');</script>";
+        } else {
+            $mail = new PHPMailer(true);
+            try {
             // Cấu hình SMTP
             $mail->isSMTP();
             $mail->CharSet = "utf-8";
@@ -125,6 +133,7 @@
             echo "<script>alert('Không thể gửi email. Lỗi: " . $mail->ErrorInfo . "');</script>";
         }
     }
+}
     ?>
 
 </body>
