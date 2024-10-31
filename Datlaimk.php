@@ -191,50 +191,51 @@
         </td>
     </tr>
     <div style="text-align: center;"> 
-        <button type='button' id='reset_value'>Làm lại</button>
+        <button type='button' id='reset_value'>Bỏ qua</button>
         <input type='submit' value='Đặt lại mật khẩu'>
     </div>
 </form>
 
-    <?php
-    include 'connect.php';
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $newPassword = isset($_POST['new_password']) ? $_POST['new_password'] : null;
-        $token = isset($_GET['token']) ? $_GET['token'] : null;
+<?php
+include 'connect.php';
 
-        if ($newPassword && $token) {
-            $stmt = $conn->prepare("SELECT MaTK FROM datlaimk WHERE Token = ? AND Trangthai = 0 AND TgHetHan > NOW()");
-            $stmt->bind_param("s", $token);
-            $stmt->execute();
-            $result = $stmt->get_result();
+// Giả sử token được truyền qua URL
+if (isset($_GET['token'])) {
+    $token = $_GET['token'];
+    
+    // Tính toán thời gian hết hạn của token (1 giờ kể từ bây giờ)
+    $expiry_time = date("Y-m-d H:i:s", strtotime("+1 hour"));
+    
+    // Query để lấy thông tin token và cập nhật thời gian hết hạn
+    $stmt = $conn->prepare("SELECT MaTK, TgHethan FROM datlaimk WHERE Token = ? AND TrangThai = 'Active'");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $MaTK = $row['MaTK'];
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                $NgaySua = date("Y-m-d H:i:s");
-                $NguoiSua = "Admin"; // hoặc lấy thông tin từ session nếu có
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $current_time = date("Y-m-d H:i:s");
 
-                $updateStmt = $conn->prepare("UPDATE thongtintaikhoan SET MatKhau = ?, NgaySua = ?, NguoiSua = ?, TrangThaiHoatDong = 1 WHERE MaTK = ?");
-                $updateStmt->bind_param("sssi", $hashedPassword, $NgaySua, $NguoiSua, $MaTK);
-                $updateStmt = $conn->prepare("UPDATE thongtintaikhoan SET MatKhau = ? WHERE MaTK = ?");
-                $updateStmt->bind_param("si", $hashedPassword, $MaTK);
-
-                if ($updateStmt->execute()) {
-                    $conn->query("UPDATE datlaimk SET Trangthai = 1 WHERE Token = '$token'");
-                    echo "<script>
-                            alert('Đặt lại mật khẩu thành công!');
-                            setTimeout(function() {
-                                window.location.href = 'dangnhap.php';
-                            }, 1500); // Thời gian chờ là 1500ms (1.5 giây)
-                          </script>";
-                }
+        // Kiểm tra nếu token vẫn hợp lệ
+        if ($current_time <= $row['TgHethan']) {
+            // Cập nhật thời gian hết hạn trong bảng 'datlaimk'
+            $update_stmt = $conn->prepare("UPDATE datlaimk SET TgHethan = ? WHERE Token = ?");
+            $update_stmt->bind_param("ss", $expiry_time, $token);
+            
+            if ($update_stmt->execute()) {
+                echo "<p>Token is valid. You can reset your password.</p>";
             } else {
-                echo "<p>Token không hợp lệ hoặc đã hết hạn!</p>";
+                echo "<p>Lỗi khi cập nhật thời gian hết hạn.</p>";
             }
+        } else {
+            echo "<p>Token has expired. Please request a new password reset.</p>";
         }
     }
-    ?>
+}
+?>
+
+
+
     <script src="datlaimk.js"></script>
 </body>
 </html>
