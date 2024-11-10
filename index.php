@@ -1,6 +1,6 @@
-<!-- <?php
+<?php
 session_start(); // Khởi động session
-?> -->
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
