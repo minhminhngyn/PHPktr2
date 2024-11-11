@@ -1,5 +1,5 @@
 <?php
-    include('connect.inp');
+    include('../helpers/others/connect.inp');
     if ($_SERVER["REQUEST_METHOD"] == "POST") 
     {
         // thông tin cá nhân

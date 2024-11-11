@@ -1,5 +1,5 @@
 <?php
-    include('connect.inp');
+    include('../helpers/others/connect.inp');
     echo "xử lý email<br>";
     if(isset($_GET['token']))
     {
@@ -14,7 +14,7 @@
             $sql_update_xacthuc="UPDATE thongtintaikhoan SET TrangThaiHoatDong = '1' WHERE TokenEmail='{$token}'";
             $result=$con->query($sql_update_xacthuc);
             echo "Tài khoản của bạn đã được kích hoạt thành công! 
-                Bạn có thể <a href='frm_dnhap.php'>đăng nhập</a>.";
+                Bạn có thể <a href='../dangnhap/dangnhap.php'>đăng nhập</a>.";
         }
     }
     else 

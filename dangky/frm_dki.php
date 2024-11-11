@@ -66,7 +66,7 @@
         <button type='button' id='reset_value'>Làm lại</button>
         <input type='submit' value='Đăng ký'>
     </form>
-    <script src="frm_dki.js"></script> 
+    <script src="../helpers/js/frm_dki.js"></script> 
 
     
 </body>
